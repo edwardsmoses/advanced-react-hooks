@@ -8,15 +8,22 @@ function Counter({initialCount = 0, step = 1}) {
   // 💰 React.useReducer(countReducer, initialCount)
 
   const stateReducer = (currentState, action) => {
+    if (typeof action === 'function') {
+      const {...result} = action(currentState)
+      console.log(result)
+      return result
+    }
     return {...currentState, ...action}
   }
 
   const [state, setState] = React.useReducer(stateReducer, {
     count: initialCount,
   })
+  const {count} = state
+  const increment = () =>
+    setState(currentState => ({count: currentState.count + step}))
 
-  const increment = () => setState({count: state.count + step, task: "increment"})
-  return <button onClick={increment}>{state.count}</button>
+  return <button onClick={increment}>{count}</button>
 }
 
 function App() {
