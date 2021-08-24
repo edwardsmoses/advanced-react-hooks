@@ -40,8 +40,10 @@ function Counter() {
 function App() {
   return (
     <div>
-      <CountDisplay />
-      <Counter />
+      <CountProvider>
+        <CountDisplay />
+        <Counter />
+      </CountProvider>
     </div>
   )
 }
